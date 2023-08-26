@@ -1,0 +1,51 @@
+In Strassen’s matrix multiplication there are seven multiplication, eighteen add/sub.
+
+Strassen Multiplication function takes 4 arguments
+    1- size of matrix
+    2- first sub-matrix for multiplication
+    3- second sub-matrix for multiplication
+    4- return matrix
+    e.g. (n, A, B, C)
+
+
+    A <-- Matrix A
+    B <-- Matrix B
+
+begin
+
+    C <-- Matrix C to hold the multiplication
+    n <-- Size of Matrix
+
+    if n == 1
+        C = A * B
+
+    else
+    
+        divide matrix A into sub matrices A11, A12, A21, A22
+        divide matrix B into sub matrices B11, B12, B21, B22
+        divide matrix C into sub matrices C11, C12, C21, C22
+
+        StrassenMultiplication(n/2, A11, B12 - B22, P1) 
+        StrassenMultiplication(n/2, A11 + A12, B22, P2) 
+        StrassenMultiplication(n/2, A21 + A22, B11, P3) 
+        StrassenMultiplication(n/2, A22, B21 - B11, P4) 
+        StrassenMultiplication(n/2, A11 + A22, B11 + B22, P5) 
+        StrassenMultiplication(n/2, A12 - A22, B21 + B22, P6) 
+        StrassenMultiplication(n/2, A11 - A21, B11 - B12, P7) 
+
+        C11 = P5 + P4 - P2 + P6
+        C12 = P5 + P1 + P2
+        C21 = P3 + P4
+        C22 = P5 + P1 – P3 – P7
+
+        Combine the sub matrices into one matrix
+        C = combine(C11, C12, C21, C22)
+
+    end if
+
+    return C
+
+end
+
+
+

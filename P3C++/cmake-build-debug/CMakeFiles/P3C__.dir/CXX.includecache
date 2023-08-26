@@ -1,0 +1,12 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+F:/MARWAN FCAI/3rd Year/5th SEMESTER/Algorithms/Assignments/AssignmentOneAlgorithms/P3C++/main.cpp
+iostream
+-
+

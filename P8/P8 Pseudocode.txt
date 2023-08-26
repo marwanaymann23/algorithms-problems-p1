@@ -1,0 +1,21 @@
+A ← sorted array
+size ← size of array
+
+lowerBound = 0
+upperBound = size - 1 
+
+while lowerBound != upperBound
+   if upperBound < lowerBound 
+      EXIT: no defective toys.
+
+   midPoint = lowerBound + ( upperBound - lowerBound ) / 2
+
+   if A[midPoint] is not defective
+      lowerBound = midPoint + 1
+
+   if A[midPoint] is defective && A[midpoint - 1] is defective
+      upperBound = midPoint - 1 
+
+   if A[midPoint] is defective && A[midpoint - 1] is not defective 
+      EXIT: toy found at location midPoint
+end while
