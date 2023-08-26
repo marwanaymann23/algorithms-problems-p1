@@ -1,0 +1,135 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Array{
+	String name;
+	int [] arr;
+	
+	public Array() {
+		name = "";
+		arr = null;
+	}
+	public Array(String name, int[] arr, int size) {
+		this.name = name;
+		//
+		arr = new int[size];
+		this.arr = arr;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int[] getArr() {
+		return arr;
+	}
+
+	public void setArr(int[] arr) {
+		this.arr = arr;
+	}
+	
+}
+
+public class ArrayMultiplication {
+	
+	public static String multiplication(int [] arr1, int [] arr2, int [] arr3) {
+		int result1 = 0, result2 = 0;
+		int [] resultArr1 = new int[arr1.length];
+		int [] resultArr2 = new int[arr1.length];
+		
+		// arr1, arr2, arr3
+		
+		// arr1 * arr2
+		for(int i = 0; i < arr1.length; i++) {
+			resultArr1[i] = arr1[i] * arr2[i];
+			result1 += resultArr1[i];
+		}
+		// (arr1 * arr2) * arr3
+		for(int i = 0; i < arr1.length; i++) {
+			resultArr1[i] *= arr3[i];	
+			result1 += resultArr1[i];
+		}
+		// arr2 * arr3
+		for(int i = 0; i < arr1.length; i++) {
+			resultArr2[i] = arr2[i] * arr3[i];
+			result2 += resultArr2[i];
+		}
+		// arr1 * (arr2 * arr3)
+		for(int i = 0; i < arr1.length; i++) {
+			resultArr2[i] *= arr1[i];	
+			result2 += resultArr2[i];
+		}
+		
+		if(result1 <= result2) {
+			return "((Arr1 * Arr2) * Arr3)";
+		}
+		// else
+		return "(Arr1 * (Arr2 * Arr3))";
+		
+	}
+	
+	public static void main(String[] args) {
+
+		int noOfArrays = 0, sizeOfArray = 0, element = 0;
+		ArrayList<Array> allArrays = new ArrayList<Array>();
+		
+		
+		System.out.println("Enter number of arrays that you want to multiply");
+		Scanner input = new Scanner(System.in);
+		noOfArrays = input.nextInt();
+		System.out.println("Enter the size of the array");
+		sizeOfArray = input.nextInt();
+		int[] arr1 = new int[sizeOfArray];
+//		int[] arr2 = new int[sizeOfArray];
+//		int[] arr3 = new int[sizeOfArray];
+		for(int i = 0; i < noOfArrays; i++) {
+			System.out.println("Enter the elements of Array " + (i+1));
+			Array arr = new Array();
+			for(int j = 0; j < sizeOfArray; j++) {
+//				if(i == 0) {
+//					element = input.nextInt();
+//					arr1[j] = element;
+//				}
+//				if(i == 1) {
+//					element = input.nextInt();
+//					arr2[j] = element;
+//				}
+//				if(i == 2) {
+//					element = input.nextInt();
+//					arr3[j] = element;
+//				}
+				element = input.nextInt();
+				arr1[j] = element;
+			}
+			arr.setArr(arr1);
+			allArrays.add(arr);
+		}
+//		int[] arr1 = { 5, 10 };
+//		int[] arr2 = { 10, 20 };
+//		int[] arr3 = { 20, 25 };
+		
+		System.out.println(multiplication(allArrays.get(0).getArr(), allArrays.get(1).getArr(), allArrays.get(2).getArr()));
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

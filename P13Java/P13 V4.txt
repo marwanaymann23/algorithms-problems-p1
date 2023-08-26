@@ -1,0 +1,195 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
+
+class Array{
+	String name;
+	int [] arr;
+	 
+	public Array() {
+		name = "";
+	}
+	
+	public Array(String name, int[] arr) {
+		this.name = name;
+		this.arr = arr;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int[] getArr() {
+		return arr;
+	}
+
+	public void setArr(int[] arr) {
+		this.arr = arr;
+	}	
+}
+
+public class ArrayMultiplication {
+	
+	public static Array threeArraysMultiplication(Array arr1, Array arr2, Array arr3) {
+		
+		int result1 = 0, result2 = 0;
+		int [] resultArr1 = new int[arr1.getArr().length];
+		int [] resultArr2 = new int[arr1.getArr().length];
+		Array resultObj;
+		String name;
+		
+		// arr1 * arr2
+		for(int i = 0; i < arr1.getArr().length; i++) {
+			resultArr1[i] = arr1.getArr()[i] * arr2.getArr()[i];
+			result1 += resultArr1[i];
+		}
+		// (arr1 * arr2) * arr3
+		for(int i = 0; i < arr1.getArr().length; i++) {
+			resultArr1[i] *= arr3.getArr()[i];	
+			result1 += resultArr1[i];
+		}
+		// arr2 * arr3
+		for(int i = 0; i < arr1.getArr().length; i++) {
+			resultArr2[i] = arr2.getArr()[i] * arr3.getArr()[i];
+			result2 += resultArr2[i];
+		}
+		// arr1 * (arr2 * arr3)
+		for(int i = 0; i < arr1.getArr().length; i++) {
+			resultArr2[i] *= arr1.getArr()[i];	
+			result2 += resultArr2[i];
+		}
+				
+		if(result1 <= result2) {
+			name = "((" + arr1.getName() + " x " + arr2.getName() + ") x " + arr3.getName() + ")";
+			resultObj = new Array(name, resultArr1);
+			return resultObj;
+		}
+		
+		// else
+		name = "(" + arr1.getName() + " x (" +  arr2.getName() + " x " + arr3.getName() + "))";
+		resultObj = new Array(name, resultArr2);
+		return resultObj;			
+	}
+	
+	
+	public static Array twoArraysMultiplication(Array arr1, Array arr2) {
+		
+		int [] resultArr1 = new int[arr1.getArr().length];
+		Array resultObj = new Array();
+		String name;
+		
+		// arr1 * arr2
+		for(int i = 0; i < arr1.getArr().length; i++) {
+			resultArr1[i] = arr1.getArr()[i] * arr2.getArr()[i];
+		}
+		
+		name = "(" + arr1.getName() + " x " +  arr2.getName() + ")";
+		resultObj = new Array(name, resultArr1);
+		return resultObj;			
+	}
+	
+//	static Array[] finalList = new Array[2];
+//	static int index = 0;
+	static ArrayList<Array> finalArrayList = new ArrayList<Array>();
+	public static void allArraysMultiplication(Array[] allArrays) {
+		
+		Array result = new Array();
+		if(allArrays.length == 3) {
+			result = threeArraysMultiplication(allArrays[0], allArrays[1], allArrays[2]);
+//			int i = 0;
+//			while(i != index) {
+//				i++;
+//			}
+//			finalList[i] = result;
+//			index++;
+			finalArrayList.add(result);
+		}
+		else if(allArrays.length == 2) {
+			result = twoArraysMultiplication(allArrays[0], allArrays[1]);
+			System.out.println(result.getName());
+		}
+//		System.out.println(result.getName());
+		
+		if(allArrays.length > 3) {
+			
+			Array[] list1 = Arrays.copyOfRange(allArrays, 0, allArrays.length/2);
+			Array[] list2 = Arrays.copyOfRange(allArrays, allArrays.length/2, allArrays.length);
+			
+//			for(int i = 0; i < list1.length; i++) {
+//				System.out.print(list1[i].getName() + " ");
+//			}
+//			System.out.println("");
+//			for(int i = 0; i < list2.length; i++) {
+//				System.out.print(list2[i].getName() + " ");
+//			}
+			allArraysMultiplication(list1);
+			allArraysMultiplication(list2);
+		}
+		if(finalArrayList.size() == 2) {
+			Array result1 = new Array();
+			result1 = twoArraysMultiplication(finalArrayList.get(0), finalArrayList.get(1));
+			System.out.println(result1.getName());
+		}
+//		if(finalList.length == 2)
+//			allArraysMultiplication(finalList);
+	}
+	
+	public static void main(String[] args) {
+
+		int noOfArrays = 0, sizeOfArray = 0, element = 0;		
+		System.out.println("Enter number of arrays that you want to multiply");
+		Scanner input = new Scanner(System.in);
+		noOfArrays = input.nextInt();
+		
+		Array[] allArrays = new Array[noOfArrays];
+		
+		System.out.println("Enter the size of the array");
+		sizeOfArray = input.nextInt();
+		int[] arr1 = new int[sizeOfArray];
+		
+		for(int i = 0; i < noOfArrays; i++) {
+			System.out.println("Enter the elements of Array " + (i+1));
+			
+			for(int j = 0; j < sizeOfArray; j++) {
+				element = input.nextInt();
+				arr1[j] = element;
+			}
+			// to set the name of each array A1, A2, ...
+			Array arr = new Array(("A" + (i+1)), arr1);
+			arr1 = new int[sizeOfArray];
+			allArrays[i] = arr;
+		}
+		allArraysMultiplication(allArrays);
+		
+//		int []arr1 = { 0, 1, 2, 3, 4, 5, 6, 7};
+//		int [] arr2 = new int[4];
+//		arr2 = Arrays.copyOfRange(arr1, arr1.length/2, arr1.length);
+//		for(int i = 0; i < arr2.length; i++) {
+//			System.out.println(arr2[i] + " ");
+//		}
+		//System.out.println(multiplication(allArrays.get(0), allArrays.get(1), allArrays.get(2)).getName());
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
